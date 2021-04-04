@@ -24,12 +24,12 @@
         color:#7a80b4
       }
 
-      #btnImportDataset {
+      #btnPrediksi {
         background-color:#0e0c28;
         color:#7a80b4
       }
 
-      #btnImportDataset:hover {
+      #btnPrediksi:hover {
           opacity:0.5;
       }
   </style>
@@ -86,70 +86,111 @@
   
   
   
-  <li class="nav-divider">Menu</li>
-  <li class="nav-item">
-  <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i>Dataset</a>
-  <div id="submenu-6" class="collapse submenu" style="">
-  <ul class="nav flex-column">
-  <li class="nav-item">
-  <a class="nav-link" href="/">Upload Dataset</a>
-  </li>
-  </ul>
-  </div>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8"><i class="fas fa-fw fa-columns"></i>Pohon Keputusan</a>
-  <div id="submenu-8" class="collapse submenu" style="">
-  <ul class="nav flex-column">
-  <li class="nav-item">
-  <a class="nav-link" href="/generaterule">Generate Rule C4.5</a>
-  </li>
-  </ul>
-  </div>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Evaluasi</a>
-  <div id="submenu-9" class="collapse submenu" style="">
-  <ul class="nav flex-column">
-  <li class="nav-item">
-  <a class="nav-link" href="/evaluasi">Pengujian</a>
-  </li>
-  </ul>
-  </div>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10"><i class="fas fa-f fa-folder"></i>Prediksi</a>
-   <div id="submenu-10" class="collapse submenu" style="">
-  <ul class="nav flex-column">
-  <li class="nav-item">
-  <a class="nav-link" href="/prediksi">Decision Tree C4.5</a>
-  </li>
-  </ul>
-  </div>
-  </li>
-  </ul>
-  </div>
-  </nav>
-  </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 860.818px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
-  </div>
   
-  
+    <li class="nav-divider">Menu</li>
+    <li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i>Dataset</a>
+    <div id="submenu-6" class="collapse submenu" style="">
+    <ul class="nav flex-column">
+    <li class="nav-item">
+    <a class="nav-link" href="/">Upload Dataset</a>
+    </li>
+    </ul>
+    </div>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8"><i class="fas fa-fw fa-columns"></i>Pohon Keputusan</a>
+    <div id="submenu-8" class="collapse submenu" style="">
+    <ul class="nav flex-column">
+    <li class="nav-item">
+    <a class="nav-link" href="/generaterule">Generate Rule C4.5</a>
+    </li>
+    </ul>
+    </div>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Evaluasi</a>
+    <div id="submenu-9" class="collapse submenu" style="">
+    <ul class="nav flex-column">
+    <li class="nav-item">
+    <a class="nav-link" href="/evaluasi">Pengujian</a>
+    </li>
+    </ul>
+    </div>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10"><i class="fas fa-f fa-folder"></i>Prediksi</a>
+     <div id="submenu-10" class="collapse submenu" style="">
+    <ul class="nav flex-column">
+    <li class="nav-item">
+    <a class="nav-link" href="/prediksi">Decision Tree C4.5</a>
+    </li>
+    </ul>
+    </div>
+    </li>
+    </ul>
+    </div>
+    </nav>
+    </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 860.818px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+    </div>
+    
+    
   
   
   
   
   <div class="dashboard-wrapper">
   <div class="dashboard-ecommerce">
-  <div class="container-fluid dashboard-content" style="margin-bottom: 30px;">
-      <div style="display: flex;flex-direction: row;align-items: center;">
-         <form enctype="multipart/form-data" id="formUploadDataset" action="" method="POST">
-            <input id="fileUploadDataset" name="dataset" type="file" style="margin-right: 15px;">
-            <div id="btnImportDataset" class="btn btn-light">Upload Dataset</div>
-          </form>
-        </div>
-      <table class="customTable" id="table"></table>
-  </div>
-  </div>
+  <form action="" method="POST" id="formPrediksi" class="container-fluid dashboard-content" style="margin-bottom: 30px;">
+      <div class="form-group">
+          <label for="exampleFormControlSelect1">Player Experience</label>
+          <select class="form-control" name="playerexperience" id="exampleFormControlSelect1">
+            <option>Tidak</option>
+            <option>Lolos</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Skill</label>
+        <select class="form-control" name="skill" id="exampleFormControlSelect1">
+           <option>Tidak</option>
+            <option>Lolos</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Intellegence</label>
+      <select class="form-control" name="intellegence" id="exampleFormControlSelect1">
+         <option>Tidak</option>
+            <option>Lolos</option>
+      </select>
+    </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Attitude</label>
+    <select class="form-control" name="attitude" id="exampleFormControlSelect1">
+       <option>Tidak</option>
+      <option>Lolos</option>
+    </select>
+</div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Turnamen</label>
+      <select class="form-control" name="turnamen" id="exampleFormControlSelect1">
+        <option>Tidak</option>
+        <option>Lolos</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+        <div id="btnPrediksi" style="width:fit-content;padding:10px 10px;cursor:pointer">Prediksi</div>
+    </div>
+
+    <div class="form-group">
+      {%if result%}
+      <h2>{{result}}</h2>
+  {%endif%}
+    </div>
+
+  </form>
+  
+</div>
   
   
   
@@ -213,47 +254,9 @@
   
     gtag('config', 'UA-23581568-13');
   </script>
-  <script>
-
-      let payload = {{data|safe}}
-
-          $('#table').bootstrapTable({
-        columns: [{
-          field: 'no',
-          title: 'No'
-        }, {
-          field: 'playerexperience',
-          title: 'Player Experience'
-        }, {
-          field: 'skill',
-          title: 'Skill'
-        },
-        {
-          field: 'intelligence',
-          title: 'Intelligence'
-        },
-        {
-          field: 'attitude',
-          title: 'Attitude'
-        },
-        {
-          field: 'turnamen',
-          title: 'Turnamen'
-        },
-        {
-          field: 'target',
-          title: 'Target'
-        },],
-        data: payload
-      })
-  </script>
-  <script>
-     document.querySelector("#btnImportDataset").addEventListener("click",()=>{
-        let form = document.querySelector("#fileUploadDataset");
-        if(form.files.length>0){
-            document.querySelector("#formUploadDataset").submit();
-        }
-       
-     })
-  </script>
+   <script>
+    document.querySelector("#btnPrediksi").addEventListener("click",()=>{
+           document.querySelector("#formPrediksi").submit();
+    })
+ </script>
   </body></html>
