@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,session
 import pandas as pd 
 import json
 import mysql.connector
@@ -13,11 +13,48 @@ mydb = mysql.connector.connect(
 )
 
 app = Flask(__name__)
+app.secret_key="this is secret"
 
 model = None
 
+@app.route("/logout")
+def logout():
+    session.pop("islogged")
+    return redirect(url_for("login"))
+
+@app.route("/login",methods=["GET","POST"])
+def login():
+    if 'islogged' in session:
+        return redirect(url_for("index"))
+    if request.method=="POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        if len(str(email))==0:
+            return render_template("login.html",error="Masukkan data login...")
+        elif len(str(password))==0:
+            return render_template("login.html",error="Masukkan data login...")
+
+        mydb.connect()
+        cursor = mydb.cursor()
+        cursor.execute("SELECT * FROM user WHERE email='{}'".format(email))
+        fetch = cursor.fetchone()
+        cursor.close()
+        mydb.close()
+
+        if fetch==None:
+           return render_template("login.html",error="Login gagal...")
+    
+        if fetch[1]==email and fetch[2]==password:
+            session["islogged"] = True
+            return redirect(url_for("index"))
+        session["islogged"] = True
+        return redirect(url_for("index"))
+    return render_template("login.html")
+
 @app.route("/",methods=["GET","POST"])
 def index():
+    if "islogged" not in session:
+        return redirect(url_for("login"))
     if request.method=="POST" and request.files:
         dataset = request.files["dataset"]
         try:
@@ -62,6 +99,8 @@ def index():
 
 @app.route("/generaterule", methods=["POST","GET"])
 def generaterule():
+    if "islogged" not in session:
+        return redirect(url_for("login"))
     if request.method=="POST":
 
         mydb.connect()
@@ -90,6 +129,8 @@ def generaterule():
 
 @app.route("/evaluasi")
 def evaluasi():
+    if "islogged" not in session:
+        return redirect(url_for("login"))
     mydb.connect()
     cursor = mydb.cursor()
     cursor.execute("SELECT * FROM dataset")
@@ -136,6 +177,8 @@ def evaluasi():
 
 @app.route("/prediksi", methods=["POST","GET"])
 def prediksi():
+    if "islogged" not in session:
+        return redirect(url_for("login"))
     if request.method=="POST":
         try:
             playerexperience = request.form["playerexperience"]
