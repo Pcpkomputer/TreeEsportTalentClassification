@@ -108,11 +108,11 @@
   </div>
   </li>
   <li class="nav-item">
-  <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Evaluasi</a>
+  <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Pengujian</a>
   <div id="submenu-9" class="collapse submenu" style="">
   <ul class="nav flex-column">
   <li class="nav-item">
-  <a class="nav-link" href="/evaluasi">Pengujian</a>
+  <a class="nav-link" href="/evaluasi">Upload Data Test</a>
   </li>
   </ul>
   </div>
@@ -217,7 +217,9 @@
 
       let payload = {{data|safe}}
 
-          $('#table').bootstrapTable({
+        $('#table').bootstrapTable({
+          pagination:true,
+          height:600,
         columns: [{
           field: 'no',
           title: 'No'
@@ -243,7 +245,21 @@
         {
           field: 'target',
           title: 'Target'
-        },],
+        },
+        {
+          field:"id",
+          title:"Aksi",
+          formatter:(value,row,index)=>{
+              return `
+                <form action="" method="POST">
+                  <input type="text" style="display:none" name="hapusDatasetSingle" value="true">
+                  <input type="text" style="display:none" name="id" value="${value}">
+                  <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+              `
+          }
+        }
+        ],
         data: payload
       })
   </script>

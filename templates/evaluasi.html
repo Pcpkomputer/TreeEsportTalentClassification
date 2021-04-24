@@ -32,6 +32,16 @@
       #btnImportDataset:hover {
           opacity:0.5;
       }
+
+      
+      #btnUjiDataset {
+        background-color:#007bff;
+        color:white
+      }
+
+      #btnUjiDataset:hover {
+          opacity:0.5;
+      }
   </style>
   <body>
   
@@ -110,11 +120,11 @@
     </div>
     </li>
     <li class="nav-item">
-    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Evaluasi</a>
+    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Pengujian</a>
     <div id="submenu-9" class="collapse submenu" style="">
     <ul class="nav flex-column">
     <li class="nav-item">
-    <a class="nav-link" href="/evaluasi">Pengujian</a>
+    <a class="nav-link" href="/evaluasi">Upload Data Test</a>
     </li>
     </ul>
     </div>
@@ -145,11 +155,21 @@
   <div class="dashboard-wrapper">
   <div class="dashboard-ecommerce">
   <div class="container-fluid dashboard-content" style="margin-bottom: 30px;">
-      <div style="margin-bottom:15px">
+      <!-- <div style="margin-bottom:15px">
           <p>Proses Evaluasi Dilakukan Dengan Pembagian Dataset Rasio: </p>
           <p>Train : 80%</p>
           <p>Test : 20%</p>
           <p>Didapapatkan perolehan akurasi sebesar : <b>{{akurasi}}%</b></p>
+      </div> -->
+      <div style="display: flex;flex-direction: row;align-items: center;">
+        <form enctype="multipart/form-data" id="formUploadDataset" action="" method="POST">
+           <input id="fileUploadDataset" name="dataset" type="file" style="margin-right: 15px;">
+           <div id="btnImportDataset" class="btn btn-light">Upload Data Test</div>
+         </form>
+         <form id="formUjiDataset" action="" method="POST">
+            <input style="display:none" type="text" name="action" value="ujidatatest">
+            <div id="btnUjiDataset" class="btn btn-light">Uji Data Test</div>
+         </form>
       </div>
       <table class="customTable" id="table"></table>
   </div>
@@ -245,12 +265,8 @@
           title: 'Turnamen'
         },
         {
-          field: 'actual',
-          title: 'Actual'
-        },
-        {
-          field: 'predicted',
-          title: 'Predicted'
+          field: 'target',
+          title: 'Target'
         },
         ],
         data: payload
@@ -261,6 +277,14 @@
         let form = document.querySelector("#fileUploadDataset");
         if(form.files.length>0){
             document.querySelector("#formUploadDataset").submit();
+        }
+       
+     })
+
+     document.querySelector("#btnUjiDataset").addEventListener("click",()=>{
+        let form = document.querySelector("#formUjiDataset");
+        if(payload.length>0){
+            document.querySelector("#formUjiDataset").submit();
         }
        
      })
