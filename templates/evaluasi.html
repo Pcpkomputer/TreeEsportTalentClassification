@@ -98,17 +98,38 @@
   
   
   
+    
     <li class="nav-divider">Menu</li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-dashboard" aria-controls="submenu-6"><i class="fas fa-fw fa-home"></i>Dashboard</a>
+      <div id="submenu-dashboard" class="collapse submenu" style="">
+      <ul class="nav flex-column">
+      <li class="nav-item">
+      <a class="nav-link" href="/">Halaman Dashboard</a>
+      </li>
+      </ul>
+      </div>
+      </li>
     <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i>Dataset</a>
     <div id="submenu-6" class="collapse submenu" style="">
     <ul class="nav flex-column">
     <li class="nav-item">
-    <a class="nav-link" href="/">Upload Dataset</a>
+    <a class="nav-link" href="/dataset">Upload Dataset</a>
     </li>
     </ul>
     </div>
     </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-datamining" aria-controls="submenu-6"><i class="fas fa-fw fa-database"></i>Data Mining</a>
+      <div id="submenu-datamining" class="collapse submenu" style="">
+      <ul class="nav flex-column">
+      <li class="nav-item">
+      <a class="nav-link" href="datamining">Data Mining</a>
+      </li>
+      </ul>
+      </div>
+      </li>
     <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8"><i class="fas fa-fw fa-columns"></i>Pohon Keputusan</a>
     <div id="submenu-8" class="collapse submenu" style="">
@@ -146,6 +167,8 @@
     </div>
     
     
+    
+    
   
   
   
@@ -155,12 +178,11 @@
   <div class="dashboard-wrapper">
   <div class="dashboard-ecommerce">
   <div class="container-fluid dashboard-content" style="margin-bottom: 30px;">
-      <!-- <div style="margin-bottom:15px">
-          <p>Proses Evaluasi Dilakukan Dengan Pembagian Dataset Rasio: </p>
-          <p>Train : 80%</p>
-          <p>Test : 20%</p>
+    {%if processed%}  
+    <div style="margin-bottom:15px">
           <p>Didapapatkan perolehan akurasi sebesar : <b>{{akurasi}}%</b></p>
-      </div> -->
+      </div>
+    {%endif%}
       <div style="display: flex;flex-direction: row;align-items: center;">
         <form enctype="multipart/form-data" id="formUploadDataset" action="" method="POST">
            <input id="fileUploadDataset" name="dataset" type="file" style="margin-right: 15px;">
@@ -172,6 +194,7 @@
          </form>
       </div>
       <table class="customTable" id="table"></table>
+
   </div>
   </div>
   
@@ -239,38 +262,97 @@
   </script>
   <script>
 
-      let payload = {{data|safe}}
+    {%if not processed%}
+          let payload = {{data|safe}}
 
           $('#table').bootstrapTable({
-        columns: [{
+          pagination:true,
+          height:600,
+          columns: [{
           field: 'no',
           title: 'No'
-        }, {
+          }, {
           field: 'playerexperience',
           title: 'Player Experience'
-        }, {
+          }, {
           field: 'skill',
           title: 'Skill'
-        },
-        {
+          },
+          {
           field: 'intelligence',
           title: 'Intelligence'
-        },
-        {
+          },
+          {
           field: 'attitude',
           title: 'Attitude'
-        },
-        {
+          },
+          {
           field: 'turnamen',
           title: 'Turnamen'
-        },
-        {
+          },
+          {
           field: 'target',
           title: 'Target'
-        },
-        ],
-        data: payload
-      })
+          },
+          {
+          field:"id",
+          title:"Aksi",
+          formatter:(value,row,index)=>{
+              return `
+                <form action="" method="POST">
+                  <input type="text" style="display:none" name="action" value="hapusDatasettestingSingle">
+                  <input type="text" style="display:none" name="id" value="${value}">
+                  <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+              `
+          }
+        }
+          ],
+          data: payload
+          })
+    {%elif processed%}
+          let payload = {{data|safe}}
+
+          $('#table').bootstrapTable({
+          columns: [{
+          field: 'no',
+          title: 'No'
+          }, {
+          field: 'playerexperience',
+          title: 'Player Experience'
+          }, {
+          field: 'skill',
+          title: 'Skill'
+          },
+          {
+          field: 'intelligence',
+          title: 'Intelligence'
+          },
+          {
+          field: 'attitude',
+          title: 'Attitude'
+          },
+          {
+          field: 'turnamen',
+          title: 'Turnamen'
+          },
+          {
+          field: 'actual',
+          title: 'Actual'
+          },
+          {
+          field: 'predicted',
+          title: 'Predicted',
+          formatter: (item,index)=>{
+              return `
+                <div style="color:#007bff">${item}</div>
+              `
+          }
+          },
+          ],
+          data: payload
+          })
+    {%endif%}
   </script>
   <script>
      document.querySelector("#btnImportDataset").addEventListener("click",()=>{
