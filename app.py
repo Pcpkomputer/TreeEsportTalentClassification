@@ -153,7 +153,7 @@ def index():
                 cursor.close()
                 mydb.close()
 
-                return redirect(url_for("dashboard"))
+                return redirect(url_for("index"))
             except Exception as e:
                 return str(e)
         if request.form["hapusDatasetSingle"]=="true":
@@ -166,7 +166,7 @@ def index():
             cursor.close()
             mydb.close()
 
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("index"))
 
     mydb.connect()
     cursor = mydb.cursor()
