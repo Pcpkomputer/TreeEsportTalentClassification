@@ -37,10 +37,14 @@ def _gini(dist):
 
 @app.route("/",methods=["POST","GET"])
 def dashboard():
+    if 'islogged' not in session:
+        return redirect(url_for("login"))
     return render_template("index.html")
 
 @app.route("/datamining", methods=["POST","GET"])
 def datamining():
+    if 'islogged' not in session:
+        return redirect(url_for("login"))
     if request.method=="POST":
         if request.form["action"]=="prosesdatamining":
             mydb.connect()
@@ -124,8 +128,8 @@ def login():
         if fetch[1]==email and fetch[2]==password:
             session["islogged"] = True
             return redirect(url_for("dashboard"))
-        session["islogged"] = True
-        return redirect(url_for("dashboard"))
+        else:
+            return render_template("login.html",error="Login gagal...")
     return render_template("login.html")
 
 @app.route("/dataset",methods=["GET","POST"])
